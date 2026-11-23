@@ -355,7 +355,7 @@ details.lcard.hl{box-shadow:0 0 0 3px var(--sec);background:#fffdf7}
 /* clickable fit labels and their explanation */
 button.pill.fitbtn{cursor:pointer;font:inherit;font-size:inherit;border-width:1px;border-style:solid}
 button.pill.fitbtn:hover,button.pill.fitbtn:focus-visible{outline:2px solid currentColor;outline-offset:1px}
-.pill .qi{display:inline-block;margin-left:6px;width:1.15em;height:1.15em;line-height:1.15em;text-align:center;border-radius:50%;border:1px solid currentColor;font-size:.8em;font-weight:700}
+.pill .qi,.sugbtn .qi{display:inline-block;margin-left:6px;width:1.15em;height:1.15em;line-height:1.15em;text-align:center;border-radius:50%;border:1px solid currentColor;font-size:.8em;font-weight:700}
 .fitlab{font-size:.85em;color:#555}
 .fitdlg{max-width:820px;width:calc(100vw - 32px);box-sizing:border-box;border:none;border-radius:14px;padding:16px 18px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
 .fitdlg::backdrop{background:rgba(0,0,0,.35)}
@@ -375,6 +375,9 @@ button.pill.fitbtn:hover,button.pill.fitbtn:focus-visible{outline:2px solid curr
 /* step 2: bachelor's and master's as two sections of one Programs step */
 .progsub{margin:14px 0 6px;padding:4px 0 4px 10px;border-left:4px solid var(--stc,#0f766e);color:var(--stc,#0f766e);font-size:1.1rem}
 #stepprog .stepside .stepcur{white-space:normal}
+/* clickable Suggestion label */
+button.stag.sugbtn{cursor:pointer;font:inherit;font-size:.85em;border:1px solid currentColor}
+button.stag.sugbtn:hover,button.stag.sugbtn:focus-visible{outline:2px solid currentColor;outline-offset:1px}
 </style></head>
 <body>
 <div class="wrap">
@@ -463,6 +466,8 @@ button.pill.fitbtn:hover,button.pill.fitbtn:focus-visible{outline:2px solid curr
 
 <footer>Costs are tuition estimates for your remaining credits. With the reimbursement box checked, they subtract employer reimbursement of $5,250 a year (C or better in each class); full-time and relocation programs (Buffalo, Northeastern J+DS) get none, since full-time day classes mean leaving your job. Your remote job travels with you for temporary stays elsewhere, checked November 19, 2026. Job family pay comes from BLS national wage data (May 2025) or from recent postings, with the source and date on each family. Years assume part-time study and are estimates.</footer>
 </section>
+
+
 
 
 
@@ -964,7 +969,7 @@ function lead(ba,ma){ const el=document.getElementById('plead'); if(!el) return;
     return xs.length?`Bachelor's that can reach a strong fit: ${xs.slice(0,5).join(', ')}${xs.length>5?` and ${xs.length-5} more`:''}.`:'No bachelor\'s here reaches a strong fit for it.'; };
   const cardH=({r,e,bp},hl)=>{const x=FX[r.id]||{}, be=bp?bp.e:e, same=bp&&bp.b.id===ba.id&&bp.m.id===ma.id, on=cur===r.id, picked=st.role===r.id;
     return `<details class="lcard sec${on?' on':''}${hl?' hl':''}" style="--sec:${sc(r)}" data-r="${r.id}"${LOPEN.has(r.id)?' open':''}>
-     <summary>${on?`<span class="onmap">${picked?'Picked':'On the map: best fit for your programs'}</span>`:''}<span class="lhead"><b>${esc(r.title)}</b>${x.suggest?'<span class="stag">Suggestion</span>':''}${x.gov?`<span class="gtag">${x.gov.map(esc).join(' / ')} government</span>`:''}</span>
+     <summary>${on?`<span class="onmap">${picked?'Picked':'On the map: best fit for your programs'}</span>`:''}<span class="lhead"><b>${esc(r.title)}</b>${x.suggest?`<button type="button" class="stag sugbtn" data-sug="${r.id}" title="Why is this suggested?">Suggestion<span class="qi" aria-hidden="true">?</span></button>`:''}${x.gov?`<span class="gtag">${x.gov.map(esc).join(' / ')} government</span>`:''}</span>
       <span class="lrow">${bp?`<span class="fitlab">Best possible:</span>${fitPill(be,bp.b,bp.m,r)}`:fitPill(e,ba,ma,r)}${payChip(r)}</span>
       <span class="lrow"><button class="toggle lpick${picked?' primary':''}" data-r="${r.id}" aria-pressed="${picked}">${picked?'Picked: click to un-pick':'Pick'}</button><span class="lmore">Details</span></span></summary>
      <div class="lbody">${bp?`<small class="bestp"><b>Best programs for it:</b> ${esc(bp.b.short)} + ${esc(bp.m.id==='none'?"no master's":bp.m.short)}${same?' (your current picks)':`. With your current picks (${esc(ba.short)} + ${esc(ma.id==='none'?"no master's":ma.short)}): `}</small>${same?'':fitPill(e,ba,ma,r)}`:''}
@@ -1239,6 +1244,15 @@ function explainFit(b,m,r){ const e=evalPlan(b,m,r), rows=T.filter(t=>r.need[t.i
     <p><b>Highest possible for you:</b> ${Math.round(mx/den*100)}%.${capped.length?` Your starting point in ${esc(capped.join(', '))} is "some", so no program can score higher than that until those skills grow.`:''}</p>
     <p><b>Values (not in the score):</b> this career area strongly matches ${vs} of your 6 values.</p>
     <p class="note">Your starting points come from your interests, projects and work history, as set in this tool's data. A program "teaches it" at Strong when it has at least two courses in that area and they suit how you learn best.</p>`]; }
+function explainSug(r){ const x=FX[r.id]||{}, bp=bestPlanFor(r);
+  const strong=bp?T.filter(t=>r.need[t.id]&&bp.e.seg[t.id].s3==='g').map(t=>t.name):[], vs=VAL.filter(v=>((r.values||{})[v.id]||{}).r==='strong').map(v=>v.name||v.id);
+  return [`Suggestion: ${esc(r.title)}`,
+   `<p><b>Why it's suggested:</b> ${esc(x.suggest||'No reason recorded.')}</p>
+    <p><b>What "Suggestion" means:</b> a career area outside the ones you started with, added because it uses skills you already have. These were chosen by hand when Laura's feedback was added. They aren't ranked higher than other career areas; they sort by fit like the rest.</p>
+    <p><b>How it scores for you:</b> ${bp?`best possible ${fitPill(bp.e,bp.b,bp.m,r)} with ${esc(bp.b.short)} + ${esc(bp.m.id==='none'?"no master's":bp.m.short)}. Click the label for the full breakdown.`:'No plan passes your filters.'}</p>
+    ${strong.length?`<p><b>Skills where you'd already be strong:</b> ${esc(strong.join(', '))}.</p>`:''}
+    <p><b>Values:</b> strongly matches ${vs.length} of your 6 values${vs.length?` (${esc(vs.join(', '))})`:''}.</p>
+    <p><b>Pay:</b> ${payChip(r)}</p>`]; }
 function explainMatch(p){ const ts=T.filter(t=>p.th[t.id]);
   return [`${esc(PMATCH[p.fit])}: ${esc(p.short)}`,
    `<p><b>What it measures:</b> an overall rating of the program on its own: how many of your interest areas its courses cover, how deeply, and whether its format suits you (online, structure, cost). It is set by hand from the program's published courses. It is <b>not</b> the same as career fit, which scores a whole plan against one career area; click a <b>Strong fit / Workable / Weak fit</b> label for that.</p>
@@ -1246,9 +1260,10 @@ function explainMatch(p){ const ts=T.filter(t=>p.th[t.id]);
     <div class="fdtw"><table class="fdtab"><thead><tr><th>Interest area</th><th>Coverage</th><th>Courses</th></tr></thead><tbody>
     ${ts.map(t=>{const x=p.th[t.id]; return `<tr><td><b>${esc(t.name)}</b></td><td>${x.cov?`<span class="d-${x.fit||'y'}">${['None','Light','Solid','Deep'][x.cov]||x.cov}</span>`:'None'}</td><td><small>${esc(x.c||'')}</small></td></tr>`;}).join('')}
     </tbody></table></div>`]; }
-document.addEventListener('click',e=>{ const btn=e.target.closest('.fitbtn'); if(!btn) return; e.preventDefault(); e.stopPropagation();
+document.addEventListener('click',e=>{ const btn=e.target.closest('.fitbtn,.sugbtn'); if(!btn) return; e.preventDefault(); e.stopPropagation();
   const d=fitDlg(); let out;
-  if(btn.dataset.fp){ const p=[...P.ba,...P.ma].find(x=>x.id===btn.dataset.fp); if(!p) return; out=explainMatch(p); }
+  if(btn.dataset.sug){ const r=P.roles.find(x=>x.id===btn.dataset.sug); if(!r) return; out=explainSug(r); }
+  else if(btn.dataset.fp){ const p=[...P.ba,...P.ma].find(x=>x.id===btn.dataset.fp); if(!p) return; out=explainMatch(p); }
   else { const b=P.ba.find(x=>x.id===btn.dataset.fb), m=P.ma.find(x=>x.id===btn.dataset.fm), r=P.roles.find(x=>x.id===btn.dataset.fr); if(!b||!m||!r) return; out=explainFit(b,m,r); }
   d.querySelector('#fdt').innerHTML=out[0]; d.querySelector('#fdb').innerHTML=out[1]; if(!d.open) d.showModal(); },true);
 /* ---- Course plans tab (trial) ---- */
