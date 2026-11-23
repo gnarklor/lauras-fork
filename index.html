@@ -362,6 +362,8 @@ button.pill.fitbtn:hover,button.pill.fitbtn:focus-visible{outline:2px solid curr
 .fdh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.fdh h2{margin:0;font-size:1.2rem}
 .fdtw{overflow-x:auto}.fdtab{border-collapse:collapse;width:100%;font-size:.92em}.fdtab th,.fdtab td{border-bottom:1px solid #e3e3e3;padding:6px;text-align:left;vertical-align:top}.fdtab small{display:block;color:#555}
 .fdtab tfoot td{border-bottom:none}
+/* step instructions as short bullets */
+.stept ul.stepl{margin:4px 0 6px;padding-left:1.2em}.stept ul.stepl li{margin:2px 0}
 </style></head>
 <body>
 <div class="wrap">
@@ -405,14 +407,14 @@ button.pill.fitbtn:hover,button.pill.fitbtn:focus-visible{outline:2px solid curr
   <p class="note" id="pfcount" aria-live="polite"></p>
 </fieldset>
 </details>
-<div class="step s1" id="stepcar"><div class="stephead"><span class="stepnum">1</span><div class="stept"><h2>Explore career areas</h2><p>Start here. Every career area is ranked by the best fit any program combination here can give you. There are two ways to choose: <b>scroll the list and press Pick</b> on any career area, <b>or use the Job family group menu</b> to bring one group's career areas to the top and pick from those. When you pick, the best-fit bachelor's and master's for it are picked for you in steps 2 and 3. Press Pick again to un-pick. Open a card's arrow for the reasons and details. <b>Suggestion</b> marks areas you may not have considered.</p><label class="chk autochk"><input type="checkbox" id="pauto" checked> Pick the best-fit programs for me when I choose a career area</label><p class="note" id="pautomsg" aria-live="polite"></p></div><div class="stepside"><span class="stepcur" id="cur3"></span><label class="grpsel">Job family group<select id="pgrp"><option value="">All groups</option></select></label></div></div>
+<div class="step s1" id="stepcar"><div class="stephead"><span class="stepnum">1</span><div class="stept"><h2>Explore career areas</h2><ul class="stepl"><li>Explore careers by picking a card, or choose a job family from the menu to bring its careers to the top.</li><li>The best-fit degrees are picked for you. Uncheck the box below to turn this off.</li><li>Open a card's arrow for details. Press Pick again to un-pick.</li></ul><label class="chk autochk"><input type="checkbox" id="pauto" checked> Pick the best-fit programs for me when I choose a career area</label><p class="note" id="pautomsg" aria-live="polite"></p></div><div class="stepside"><span class="stepcur" id="cur3"></span><label class="grpsel">Job family group<select id="pgrp"><option value="">All groups</option></select></label></div></div>
 <p class="pfull" id="prolefull"></p>
 <div id="plead"></div></div>
-<div class="step s2" id="stepba"><div class="stephead"><span class="stepnum">2</span><div class="stept"><h2>Choose a bachelor's</h2><p>Picked for you from your career area, or click any card to choose your own. Online programs come first, then the best fit. With a career area picked, each card shows how well it fits it.</p></div><span class="stepcur" id="cur1"></span></div>
+<div class="step s2" id="stepba"><div class="stephead"><span class="stepnum">2</span><div class="stept"><h2>Choose a bachelor's</h2><ul class="stepl"><li>Picked for you from your career area, or click a card to choose your own.</li><li>Online programs come first. Each card shows its fit for your career area.</li></ul></div><span class="stepcur" id="cur1"></span></div>
 <div id="pexba"></div></div>
-<div class="step s3" id="stepma"><div class="stephead"><span class="stepnum">3</span><div class="stept"><h2>Add a master's or certificate <span class="opt">optional</span></h2><p>Picked for you from your career area, or click one to choose your own, including "No master's". The fit ratings in step 1 update to match.</p></div><span class="stepcur" id="cur2"></span></div>
+<div class="step s3" id="stepma"><div class="stephead"><span class="stepnum">3</span><div class="stept"><h2>Add a master's or certificate <span class="opt">optional</span></h2><ul class="stepl"><li>Picked for you, or click one to choose your own, including "No master's".</li></ul></div><span class="stepcur" id="cur2"></span></div>
 <div id="pexma"></div></div>
-<div class="step s4" id="stepplan"><div class="stephead"><span class="stepnum">4</span><div class="stept"><h2>See the whole plan</h2><p>Cost, fit, the skills map, when you could start each job family, and full program details. Save plans here to compare them in Saved paths.</p></div></div>
+<div class="step s4" id="stepplan"><div class="stephead"><span class="stepnum">4</span><div class="stept"><h2>See the whole plan</h2><ul class="stepl"><li>Cost, fit, skills, timing and program details for your plan.</li><li>Save it to compare plans in Saved paths.</li></ul></div></div>
 <div class="pickers">
   <label>Bachelor's<select id="pba"></select></label>
   <label>Master's<select id="pma"></select></label>
@@ -448,6 +450,7 @@ button.pill.fitbtn:hover,button.pill.fitbtn:focus-visible{outline:2px solid curr
 
 <footer>Costs are tuition estimates for your remaining credits. With the reimbursement box checked, they subtract employer reimbursement of $5,250 a year (C or better in each class); full-time and relocation programs (Buffalo, Northeastern J+DS) get none, since full-time day classes mean leaving your job. Your remote job travels with you for temporary stays elsewhere, checked November 19, 2026. Job family pay comes from BLS national wage data (May 2025) or from recent postings, with the source and date on each family. Years assume part-time study and are estimates.</footer>
 </section>
+
 
 
 
