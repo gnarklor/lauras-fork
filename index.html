@@ -364,6 +364,17 @@ button.pill.fitbtn:hover,button.pill.fitbtn:focus-visible{outline:2px solid curr
 .fdtab tfoot td{border-bottom:none}
 /* step instructions as short bullets */
 .stept ul.stepl{margin:4px 0 6px;padding-left:1.2em}.stept ul.stepl li{margin:2px 0}
+/* Course plans: saved plans */
+.cpsavebox{border:1px solid #d6d6d6;border-radius:12px;padding:10px 12px;margin:0 0 16px;background:#fbfaf6}
+.cpsaverow{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}.cpsaverow label{display:flex;flex-direction:column;font-weight:600;flex:1 1 220px;max-width:420px}
+.cpsaverow input{font:inherit;font-weight:400;padding:6px;border:1px solid #bbb;border-radius:8px}
+.cpsavebox h3{margin:8px 0 4px;font-size:1rem}
+.cpsvlist{list-style:none;margin:0;padding:0}.cpsvlist li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center;padding:6px 8px;border-top:1px solid #e6e6e6}
+.cpsvlist li.on{background:#f4f8ff}.cpsvlist small{display:block;color:#555}.cpsvbtns{display:flex;gap:6px}
+@media print{.cpsavebox{display:none!important}}
+/* step 2: bachelor's and master's as two sections of one Programs step */
+.progsub{margin:14px 0 6px;padding:4px 0 4px 10px;border-left:4px solid var(--stc,#0f766e);color:var(--stc,#0f766e);font-size:1.1rem}
+#stepprog .stepside .stepcur{white-space:normal}
 </style></head>
 <body>
 <div class="wrap">
@@ -394,7 +405,7 @@ button.pill.fitbtn:hover,button.pill.fitbtn:focus-visible{outline:2px solid curr
   <p>Start with a career area. Pick one and the best-fit bachelor's and master's for it are picked for you, with the reasons. Then change either program to compare. Careers are for discovery: nothing here limits which programs you see.</p>
 </header>
 <p class="sugg"><b>Your day job doesn't have to cover all of your interests.</b> Each career area lists side options, such as freelance journalism or volunteer work, that can cover the rest, especially social justice.</p>
-<nav class="stepper" aria-label="Steps"><button data-go="stepcar"><span class="sn">1</span>Career areas</button><button data-go="stepba"><span class="sn">2</span>Bachelor's</button><button data-go="stepma"><span class="sn">3</span>Master's</button><button data-go="stepplan"><span class="sn">4</span>Whole plan</button></nav>
+<nav class="stepper" aria-label="Steps"><button data-go="stepcar"><span class="sn">1</span>Career areas</button><button data-go="stepprog"><span class="sn">2</span>Programs</button><button data-go="stepplan"><span class="sn">3</span>Whole plan</button></nav>
 <details class="pfwrap"><summary>Filters <span id="pfon"></span></summary>
 <fieldset class="pfilters"><legend>Filters</legend>
   <label>Location<select id="floc"><option value="near" selected>Online, or commuting within about 45 minutes</option><option value="online">Online only</option></select></label>
@@ -410,11 +421,13 @@ button.pill.fitbtn:hover,button.pill.fitbtn:focus-visible{outline:2px solid curr
 <div class="step s1" id="stepcar"><div class="stephead"><span class="stepnum">1</span><div class="stept"><h2>Explore career areas</h2><ul class="stepl"><li>Explore careers by picking a card, or choose a job family from the menu to bring its careers to the top.</li><li>The best-fit degrees are picked for you. Uncheck the box below to turn this off.</li><li>Open a card's arrow for details. Press Pick again to un-pick.</li></ul><label class="chk autochk"><input type="checkbox" id="pauto" checked> Pick the best-fit programs for me when I choose a career area</label><p class="note" id="pautomsg" aria-live="polite"></p></div><div class="stepside"><span class="stepcur" id="cur3"></span><label class="grpsel">Job family group<select id="pgrp"><option value="">All groups</option></select></label></div></div>
 <p class="pfull" id="prolefull"></p>
 <div id="plead"></div></div>
-<div class="step s2" id="stepba"><div class="stephead"><span class="stepnum">2</span><div class="stept"><h2>Choose a bachelor's</h2><ul class="stepl"><li>Picked for you from your career area, or click a card to choose your own.</li><li>Online programs come first. Each card shows its fit for your career area.</li></ul></div><span class="stepcur" id="cur1"></span></div>
-<div id="pexba"></div></div>
-<div class="step s3" id="stepma"><div class="stephead"><span class="stepnum">3</span><div class="stept"><h2>Add a master's or certificate <span class="opt">optional</span></h2><ul class="stepl"><li>Picked for you, or click one to choose your own, including "No master's".</li></ul></div><span class="stepcur" id="cur2"></span></div>
+<div class="step s2" id="stepprog"><div class="stephead"><span class="stepnum">2</span><div class="stept"><h2>Choose programs</h2><ul class="stepl"><li>Picked for you from your career area, or click a card to choose your own.</li><li>Online programs come first. Each card shows its fit for your career area.</li></ul></div><div class="stepside"><span class="stepcur" id="cur1"></span><span class="stepcur" id="cur2"></span></div></div>
+<h3 class="progsub" id="stepba">Bachelor's</h3>
+<div id="pexba"></div>
+<h3 class="progsub" id="stepma">Master's or certificate <span class="opt">optional</span></h3>
+<p class="note">Including "No master's".</p>
 <div id="pexma"></div></div>
-<div class="step s4" id="stepplan"><div class="stephead"><span class="stepnum">4</span><div class="stept"><h2>See the whole plan</h2><ul class="stepl"><li>Cost, fit, skills, timing and program details for your plan.</li><li>Save it to compare plans in Saved paths.</li></ul></div></div>
+<div class="step s4" id="stepplan"><div class="stephead"><span class="stepnum">3</span><div class="stept"><h2>See the whole plan</h2><ul class="stepl"><li>Cost, fit, skills, timing and program details for your plan.</li><li>Save it to compare plans in Saved paths.</li></ul></div></div>
 <div class="pickers">
   <label>Bachelor's<select id="pba"></select></label>
   <label>Master's<select id="pma"></select></label>
@@ -450,6 +463,9 @@ button.pill.fitbtn:hover,button.pill.fitbtn:focus-visible{outline:2px solid curr
 
 <footer>Costs are tuition estimates for your remaining credits. With the reimbursement box checked, they subtract employer reimbursement of $5,250 a year (C or better in each class); full-time and relocation programs (Buffalo, Northeastern J+DS) get none, since full-time day classes mean leaving your job. Your remote job travels with you for temporary stays elsewhere, checked November 19, 2026. Job family pay comes from BLS national wage data (May 2025) or from recent postings, with the source and date on each family. Years assume part-time study and are estimates.</footer>
 </section>
+
+
+
 
 
 
@@ -542,11 +558,19 @@ button.pill.fitbtn:hover,button.pill.fitbtn:focus-visible{outline:2px solid curr
 <section id="course-view" hidden>
 <header>
   <h1>Course plans</h1>
-  <p>A draft outline of what a self-designed degree could look like, to bring to an advisor. Tick the courses you want in your major; the credit counts update as you go. Your goal statement and picks are saved in this browser only. Use <b>Copy outline</b> to paste it into an email, or <b>Print</b> to save a PDF.</p>
+  <ul class="stepl">
+    <li>Tick courses for your major. Credit counts update as you go.</li>
+    <li>Save versions to come back to, copy the outline into an email, or print it as a PDF.</li>
+    <li>Plans are saved in this browser only.</li>
+  </ul>
 </header>
 <div class="cpbar"><label>Program<select id="cpprog"></select></label>
-  <button class="toggle" id="cpcopy">Copy outline</button><button class="toggle" id="cpprint">Print or save as PDF</button><button class="toggle" id="cpreset">Reset to the suggested draft</button>
-  <span class="note" id="cpmsg" aria-live="polite"></span></div>
+  <button class="toggle" id="cpcopy">Copy outline</button><button class="toggle" id="cpprint">Print or save as PDF</button><button class="toggle" id="cpreset">Reset to the suggested draft</button></div>
+<div class="cpsavebox">
+  <div class="cpsaverow"><label>Plan name<input id="cpname" maxlength="80" placeholder="For example: Policy-heavy draft"></label><button class="toggle primary" id="cpsavebtn">Save this plan</button></div>
+  <p class="note" id="cpmsg" aria-live="polite"></p>
+  <div id="cpsaved"></div>
+</div>
 <div id="cpbody"></div>
 </section>
 
@@ -912,9 +936,9 @@ function explore(ba,ma){ const el=document.getElementById('pexba'), el2=document
   el2.innerHTML=`<div class="xgrid">${card(MA0(),'ma')}${list(P.ma,'ma')}</div>${lo('ma')}`;
   /* step headers: what is picked so far */
   const setc=(id,t)=>{const e=document.getElementById(id); if(e) e.textContent=t;};
-  setc('cur1',ba.id==='none'?'Nothing picked yet':'Picked: '+ba.short);
+  setc('cur1',ba.id==='none'?"Bachelor's: none picked":"Bachelor's: "+ba.short);
   const pf=document.getElementById('pauto'); if(pf) pf.checked=AUTO;
-  const r0=eff(); setc('psavewhat',`${ba.id==='none'?"no bachelor's":ba.short} + ${ma.id==='none'?"no master's":ma.short} + ${r0.none?'no career area':r0.title}`); setc('psvn',String(SV.length)); setc('cur2',ma.id==='none'?"Picked: no master's":'Picked: '+ma.short);
+  const r0=eff(); setc('psavewhat',`${ba.id==='none'?"no bachelor's":ba.short} + ${ma.id==='none'?"no master's":ma.short} + ${r0.none?'no career area':r0.title}`); setc('psvn',String(SV.length)); setc('cur2',ma.id==='none'?"Master's: none":"Master's: "+ma.short);
   setc('cur3',st.role?'Picked: '+roleOf(st).title:'Nothing picked yet');
   const n=activeFilters().length+(F.loc==='online'?1:0); setc('pfon',n?`(${n} on)`:'(none on)'); }
 /* career areas for a plan, best fit first. Government families stay listed even with a blocker (clearance), so they can be compared */
@@ -1117,7 +1141,7 @@ document.getElementById('plead').addEventListener('click',e=>{const b=e.target.c
   if(st.role===b.dataset.r){ st.role=''; msg.textContent='Career area un-picked. Your programs stay as they are.'; render(); return; }
   st.role=b.dataset.r; const r=roleOf(st);
   if(AUTO){ const bp=bestPlanFor(r); if(bp){ st.ba=bp.b.id; st.ma=bp.m.id; st.sel=null; ACT=null;
-      msg.textContent=`Picked ${r.title}. Best-fit programs picked for it: ${bp.b.short} + ${bp.m.id==='none'?"no master's":bp.m.short}, a ${fitTxt(bp.e).toLowerCase()}. Change either in steps 2 and 3 to compare.`; } }
+      msg.textContent=`Picked ${r.title}. Best-fit programs picked for it: ${bp.b.short} + ${bp.m.id==='none'?"no master's":bp.m.short}, a ${fitTxt(bp.e).toLowerCase()}. Change either in step 2 to compare.`; } }
   else msg.textContent=`Picked ${r.title}. Your programs were left as they are.`;
   render();});
 document.getElementById('pauto').addEventListener('change',e=>{AUTO=e.target.checked;});
@@ -1230,6 +1254,14 @@ document.addEventListener('click',e=>{ const btn=e.target.closest('.fitbtn'); if
 const CPK='re_courseplan_v1'; let CPS_={};
 try{ CPS_=JSON.parse(localStorage.getItem(CPK)||'{}')||{}; }catch(e){ CPS_={}; }
 const cpSave=()=>{ try{ localStorage.setItem(CPK,JSON.stringify(CPS_)); }catch(e){} };
+/* named saved course plans: [{id,name,prog,goal,pick,at}] */
+const CPSK='re_courseplan_saved_v1'; let CPSV=[], CPCUR='';
+try{ CPSV=JSON.parse(localStorage.getItem(CPSK)||'[]'); if(!Array.isArray(CPSV)) CPSV=[]; }catch(e){ CPSV=[]; }
+const cpSaveList=()=>{ try{ localStorage.setItem(CPSK,JSON.stringify(CPSV)); return true; }catch(e){ return false; } };
+function renderCpSaved(){ const el=document.getElementById('cpsaved'); if(!el) return; const ps=P.courseplans||{};
+  if(!CPSV.length){ el.innerHTML='<p class="note">No saved plans yet.</p>'; return; }
+  const creds=x=>{ const pl=ps[x.prog]; return pl?pl.blocks.flatMap(b=>b.courses).filter(c=>x.pick[c.c]).reduce((a,c)=>a+c.cr,0):0; };
+  el.innerHTML=`<h3>Saved plans (${CPSV.length})</h3><ul class="cpsvlist">${CPSV.map(x=>`<li class="${x.id===CPCUR?'on':''}"><span><b>${esc(x.name)}</b><small>${esc((ps[x.prog]||{}).name||x.prog)}. ${creds(x)} major credits. Saved ${esc(x.at)}.${x.id===CPCUR?' Open now.':''}</small></span><span class="cpsvbtns"><button class="toggle" data-cpo="${esc(x.id)}">Open</button><button class="toggle" data-cpd="${esc(x.id)}">Delete</button></span></li>`).join('')}</ul>`; }
 const cpPlan=()=>{ const ps=P.courseplans||{}, sel=document.getElementById('cpprog'); return ps[(sel&&sel.value)||Object.keys(ps)[0]]; };
 const cpState=pl=>{ const st=CPS_[pl.prog]||(CPS_[pl.prog]={}); if(st.goal==null) st.goal=pl.goal; if(!st.pick){ st.pick={}; pl.blocks.forEach(b=>b.courses.forEach(c=>{ if(c.pick) st.pick[c.c]=1; })); } return st; };
 const cpPicked=(pl,st)=>pl.blocks.flatMap(b=>b.courses.filter(c=>st.pick[c.c]).map(c=>({...c,blk:b.name})));
@@ -1247,7 +1279,7 @@ function renderCourse(){ const el=document.getElementById('cpbody'); if(!el) ret
    <h3>5. Questions for the advisor</h3><ol class="cplist">${pl.questions.map(q=>`<li>${esc(q)}</li>`).join('')}</ol>`; }
 function cpText(){ const pl=cpPlan(); if(!pl) return ''; const st=cpState(pl), pk=cpPicked(pl,st), tot=pk.reduce((a,c)=>a+c.cr,0);
   const by={}; pk.forEach(c=>(by[c.blk]=by[c.blk]||[]).push(c));
-  return [`Draft course plan: ${pl.name}`,'', 'What I\'m trying to accomplish', st.goal,'', `Draft major (${tot} of 40 credits)`,
+  const cur=CPSV.find(x=>x.id===CPCUR); return [`Draft course plan: ${pl.name}${cur?` (${cur.name})`:''}`,'', 'What I\'m trying to accomplish', st.goal,'', `Draft major (${tot} of 40 credits)`,
     ...Object.entries(by).flatMap(([k,cs])=>[`${k}:`,...cs.map(c=>`- ${c.c} ${c.t} (${c.cr} cr, ${c.camp})${c.pre?`; needs ${c.pre}`:''}`)]),'',
     'Also worth raising', ...pl.extra.map(x=>'- '+x.t),'', 'Questions', ...pl.questions.map((q,i)=>`${i+1}. ${q}`),'',
     `Course details from UNH's Spring 2027 schedule (checked ${pl.checked}): https://courses.unh.edu/timeroom?termcode=202650&campus=10`].join('\n'); }
@@ -1259,8 +1291,20 @@ function setupCourse(){ const sel=document.getElementById('cpprog'); if(!sel) re
   body.addEventListener('input',e=>{ if(e.target.id!=='cpgoal') return; cpState(cpPlan()).goal=e.target.value; cpSave(); });
   document.getElementById('cpcopy').addEventListener('click',async()=>{ const t=cpText(); try{ await navigator.clipboard.writeText(t); msg.textContent='Outline copied. Paste it into an email or document.'; }catch(e){ const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); let ok=false; try{ ok=document.execCommand('copy'); }catch(_){} ta.remove(); msg.textContent=ok?'Outline copied.':'Copy was blocked by the browser. Use Print instead.'; } });
   document.getElementById('cpprint').addEventListener('click',()=>window.print());
-  document.getElementById('cpreset').addEventListener('click',()=>{ const pl=cpPlan(); delete CPS_[pl.prog]; cpSave(); renderCourse(); msg.textContent='Back to the suggested draft.'; });
-  renderCourse(); }
+  document.getElementById('cpreset').addEventListener('click',()=>{ const pl=cpPlan(); delete CPS_[pl.prog]; CPCUR=''; cpSave(); renderCourse(); renderCpSaved(); msg.textContent='Back to the suggested draft.'; });
+  const nm=document.getElementById('cpname');
+  document.getElementById('cpsavebtn').addEventListener('click',()=>{ const pl=cpPlan(); if(!pl) return; const st=cpState(pl), name=(nm.value||'').trim()||`Plan ${CPSV.length+1}`;
+    const at=new Date().toISOString().slice(0,10), data={name,prog:pl.prog,goal:st.goal,pick:{...st.pick},at};
+    const ex=CPSV.find(x=>x.name.toLowerCase()===name.toLowerCase()&&x.prog===pl.prog);
+    if(ex){ Object.assign(ex,data); CPCUR=ex.id; } else { const id='cp'+Date.now().toString(36); CPSV.unshift({id,...data}); CPCUR=id; }
+    const ok=cpSaveList(); nm.value=name; renderCpSaved();
+    msg.textContent=ok?(ex?`Updated "${name}".`:`Saved "${name}".`):'This browser blocked saving. Use Copy outline or Print to keep a copy.'; });
+  document.getElementById('cpsaved').addEventListener('click',e=>{ const o=e.target.closest('[data-cpo]'), d=e.target.closest('[data-cpd]');
+    if(o){ const x=CPSV.find(y=>y.id===o.dataset.cpo); if(!x) return; CPS_[x.prog]={goal:x.goal,pick:{...x.pick}}; cpSave(); sel.value=x.prog; CPCUR=x.id; nm.value=x.name; renderCourse(); renderCpSaved(); msg.textContent=`Opened "${x.name}". Changes aren't saved to it until you press Save this plan.`; }
+    if(d){ const i=CPSV.findIndex(y=>y.id===d.dataset.cpd); if(i<0) return; const [x]=CPSV.splice(i,1); if(CPCUR===x.id) CPCUR=''; cpSaveList(); renderCpSaved();
+      msg.innerHTML=`Deleted "${esc(x.name)}". <button class="toggle" id="cpundo">Undo</button>`;
+      document.getElementById('cpundo').addEventListener('click',()=>{ CPSV.splice(i,0,x); cpSaveList(); renderCpSaved(); msg.textContent=`Restored "${x.name}".`; },{once:true}); } });
+  renderCourse(); renderCpSaved(); }
 setupCourse();
 render();
 })();
